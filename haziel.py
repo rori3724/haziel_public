@@ -198,7 +198,11 @@ async def on_message(message): #사용자가 메세지를 입력했을때 반응
         else:
             embed = discord.Embed(title="오류", description="이 명령어는 저의 서포트 체널에서만 사용가능해요 [여기](https://discord.gg/c3fjR4Kmvh) 를 눌러 바로 서포트 채널로 이동 하실수 있어요!", color=0xAAFFFF)
             await message.channel.send(embed=embed) 
-    #===============================================재미기능(금붕어 키우기는 오류나서 안 올립니다)=======================================================================
+    #===============================================재미기능=======================================================================
+    if message.content.startswith("/봇정보"):
+        users = len(client.users)
+        servers = len(client.guilds)
+        await message.channel.send(f"봇이 있는 서버 수: {servers}, 봇이 있는 서버에 있는 유저 수의 합: {users}")
     if message.content == "/링크":
         await message.channel.send(embed=discord.Embed(title="한국 봇 리스트 링크", description = "[여기](https://koreanbots.dev/bots/800193013292335145)를 눌러 바로 접속하실수 있어요!\n하트 부탁드려요!", color=0x00ff00))
         return
