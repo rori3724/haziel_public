@@ -4,7 +4,7 @@ from discord.ext import commands
 
 #이 프로젝트는 디스코드 haziel의 저작문서이므로 무단 복제를 금지합니다
 
-token = "ODAwMTkzMDEzMjkyMzM1MTQ1.YAOj0Q.oRsj5Al2okgCKu0U4tnGSeNFrPM" #봇 토큰 설정하기
+token = "token code" #봇 토큰 설정하기
 
 client = commands.Bot(command_prefix= "/")
 
