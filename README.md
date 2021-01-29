@@ -12,4 +12,4 @@
 
 서포트 서버
 
--(https://discord.gg/tVnnNBWHE5)
+-[링크](https://discord.gg/tVnnNBWHE5)
