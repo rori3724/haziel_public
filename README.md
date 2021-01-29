@@ -3,7 +3,7 @@
 <h2 align="center">ㅎㅇㅎㅇ 👋</h2>
 <p align="center">저는 rori3724에요.</p>
 
-[![Discord](https://discordapp.com/api/guilds/787278470630604800/embed.png)](https://discord.gg/tVnnNBWHE5)
+[![Discord](https://discord.com/widget?id=787278470630604800&theme=dark](https://discord.gg/tVnnNBWHE5)
 ![Language](https://img.shields.io/badge/language-python-brightgreen)
 
 저작권
