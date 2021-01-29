@@ -3,7 +3,7 @@
 <h2 align="center">ㅎㅇㅎㅇ 👋</h2>
 <p align="center">저는 rori3724에요.</p>
 
-[![Discord]<iframe src="https://discord.com/widget?id=787278470630604800&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>)(https://discord.gg/tVnnNBWHE5)
+<iframe src="https://discord.com/widget?id=787278470630604800&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>(https://discord.gg/tVnnNBWHE5)
 ![Language](https://img.shields.io/badge/language-python-brightgreen)
 
 저작권
