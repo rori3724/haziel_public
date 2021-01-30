@@ -476,33 +476,40 @@ async def on_message(message): #사용자가 메세지를 입력했을때 반응
     
     
 
-    if message.content == "/도움말":
-        if message.author.id == 704535152763601007:
-            embed = discord.Embed(title="Haizel의 명령어 도움말", description="Haizel은 관리기능 편의기능 재미기능 등이 있어요!", color=0xAAFFFF) 
-            embed.add_field(name="관리기능", value="ㅤ", inline=False)
-            embed.add_field(name="/킥 [사용자 ID] [사유]", value="특정사용자를 서버에서 킥시켜요", inline=True)
-            embed.add_field(name="/밴 [사용자 ID] [사유]", value="특정사용자를 서버에서 밴시켜요", inline=True)
-            embed.add_field(name="/청소 [개수]", value="매세지를 청소해요(요구 권한=관리자)", inline=True)
-            embed.add_field(name="/고정 [고정할 매세지]", value="매세지를 고정해요", inline=True)
-            embed.add_field(name="/핑", value="현재 핑을 측정해서 알려줘요", inline=True)
-            embed.add_field(name="편의기능", value="ㅤ", inline=False)
-            embed.add_field(name="/타이머 [시간(초기준)]", value="몇초의 타이머를 설정하고 끝나면 맨션해 드려요", inline=True)
-            embed.add_field(name="/주사위", value="1부터 6까지 중에서 랜덤 숫자를 불러주어요", inline=True)
-            embed.add_field(name="/서버정보", value="현재 서버의 정보를 알려줘요", inline=True)
-            embed.add_field(name="/투표 [제목]/[항목 1]/[항목 2]....", value="투표를 할수있어요!예:'/투표 헤이즐은 유용하다/yes/no'같이 사용할수 있어요!", inline=True)
-            embed.add_field(name="/내정보", value="디엠으로 내 정보를 알려줘요", inline=True)
-            embed.add_field(name="/말해 [말할 내용]", value="봇으로 말을 할 수 있어요", inline=True)
-            embed.add_field(name="재미기능", value="ㅤ", inline=False)
-            embed.add_field(name="/금붕어 키우기", value="금붕어 키우기 미니게임을 해요", inline=True)
-            embed.add_field(name="/가위(또는 /바위 또는 /보)", value="가위바위보 게임을 해요", inline=True)
-            embed.add_field(name="봇 정보", value="ㅤ", inline=False)
-            embed.add_field(name="/링크", value="한국 봇 리스트 링크를 줘요", inline=True)
-            embed.add_field(name="/초대링크", value="저의 초대링크를 드려요", inline=True)
-            embed.add_field(name="/디자이너", value="저의 프사를 만들어주신분을 알려드려요", inline=True)
-            embed.add_field(name="/개발자", value="저를 만들어주신분을 알려드려요!", inline=True)
-            embed.add_field(name="/도움말 페이지2", value="나머지 기능의 도움말이에요", inline=False)
-            await message.channel.send(embed=embed)
-        else:
-            await message.channel.send(f"{message.author.mention}, 아래의 링크를 클릭하여 서포트서버에서 **#도움말**에 가보시면 되요!")
-            embed = discord.Embed(title="Haizel의 서포트 서버", description="[여기](https://discord.gg/xEBEpw7uQs)를 클릭하여 바로 갈수 있어요!", color=0xAAFFFF) 
-            await message.channel.send(embed=embed)
+    if message.content == '/도움말' or message.content == '/도움' or message.content == '/help':
+        n = 0
+        helps = [discord.Embed(title='목차', description='**페이지 2**\n 관리기능\n**페이지 3**\n편의기능\n**페이지 4**\n재미기능\n**페이지 5**\n봇정보', color=0x00ffff),
+                 discord.Embed(title='관리기능', description='**/킥 [사용자 ID] [사유]**\n특정사용자를 서버에서 킥시켜요\n**/밴 [사용자 ID] [사유]\n특정사용자를 서버에서 밴시켜요\n **/고정 [고정할 매세지]** \n매세지를 고정해요\n **/핑** \n현재 핑을 측정해서 알려줘요', color=0x00fffff),
+                 discord.Embed(title='편의기능', description='**/타이머 [시간(초기준)]**\n몇초의 타이머를 설정하고 끝나면 맨션해 드려요\n **/주사위**1부터 6까지 중에서 랜덤 숫자를 불러주어요\n**/서버정보**\n현재 서버의 정보를 알려줘요\n**/투표 [제목]/[항목 1]/[항목 2]....**투표를 할수있어요!예:"/투표 헤이즐은 유용하다/yes/no"같이 사용할수 있어요!\n**/내정보**\n디엠으로 내 정보를 알려줘요\n**/말해 [말할 내용]**\n봇으로 말을 할 수 있어요', color=0x00fffff),
+                 discord.Embed(title='재미기능', description='**/금붕어 키우기**\n금붕어 키우기 미니게임을 해요\n**/가위(또는 /바위 또는 /보)**\n가위바위보 게임을 해요', color=0x00fffff),
+                 discord.Embed(title='봇정보', description='**/링크**\n한국 봇 리스트 링크를 줘요\n**/초대링크**\n저의 초대링크를 드려요\n**/개발자**\n저를 만들어주신분을 알려드려요!\n**/디자이너**\n저의 프사를 만들어주신분을 알려드려요', color=0x00fffff),]
+        help_msg = await message.channel.send(embed=helps[n])
+        for i in ['⏪', '◀️', '⏹️', '▶️', '⏩']:
+            await help_msg.add_reaction(i)
+        def check(reaction, user):
+        	return user == message.author and reaction.message.channel == message.channel
+        while True:
+            try:
+                reaction, user = await client.wait_for('reaction_add', check=check, timeout=120)
+            except asyncio.TimeoutError:
+                break
+            if reaction.emoji == '⏪':
+                n = 0
+                await help_msg.edit(embed=helps[n])
+            elif reaction.emoji == '⏩':
+                n = len(helps)-1
+                await help_msg.edit(embed=helps[n])
+            elif reaction.emoji == '◀️':
+                if n != 0:
+                    n -= 1
+                    await help_msg.edit(embed=helps[n])
+            elif reaction.emoji == '▶️':
+                if n != len(helps)-1:
+                    n += 1
+                    await help_msg.edit(embed=helps[n])
+            elif reaction.emoji == '⏹️':
+                await help_msg.delete()
+                break
+                                    
+                                    
+client.run(token)
