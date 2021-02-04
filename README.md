@@ -13,3 +13,6 @@
 서포트 서버
 
 -[링크](https://discord.gg/tVnnNBWHE5)
+
+
+<iframe src="https://discord.com/widget?id=787278470630604800&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
