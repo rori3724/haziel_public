@@ -29,12 +29,18 @@ async def on_ready(): #봇이 준비되었을때 뭐라고하기
 
 
 
-
+@client.event
+async def on_member_join(member):
+    syschannel = member.guild.system_channel.id 
+    try:
+        await client.get_channel(syschannel).send(f"{member.guild}에  {member}님이 오셨어요.{member}님이 오셔서 서버 인원수가 {str(len(member.guild.members))}명이 되었어요")
+    except:
+        return None
 
 @client.event
 async def on_guild_join(server):
-    await message.channel.send("저를 초대해 주셔서 감사해요!이제부터 이 서버를 열심히 보호도 하고 여려분과 열심히 놀게요(?)")
     print(server,"서버에 들어왔어요!헤이즐 서버 하나 늘었다")
+    await user.guild.system_channel.send(f'저를 초대해 주셔서 감사해요')
 
 @client.event
 async def on_guild_remove(server):
@@ -42,35 +48,44 @@ async def on_guild_remove(server):
 
 
 
+
 @client.event
 async def on_message(message): #사용자가 메세지를 입력했을때 반응하기
     if message.content.startswith("/킥"):
-        if message.author.guild_permissions.administrator:
-            user = await client.fetch_user(int(message.content[3:22]))
-            reason = message.content[22:]
-            await message.guild.kick(user)
-            embed = discord.Embed(title="킥문구 작동", color=0xAAFFFF) 
-            embed.add_field(name="킥된 유저", value=f"{user.mention}", inline=False)
-            embed.add_field(name="킥 시킨 관리자", value=f"{message.author.mention}", inline=False)
-            embed.add_field(name="사유", value=f"{reason}", inline=False)
-            await message.channel.send(embed=embed)
+        if message.content == "/킥":
+            await message.channel.send(embed=discord.Embed(title="에러 발생", description = "올바른 명령어는 '/킥 (킥할 유저의 아이디) (사유)'에요", color=0xff0000))
         else:
-            await message.channel.send(embed=discord.Embed(title="오류발생", description =f"{message.author.mention}님은 권한이 없어요", color=0xff0000))
-            return
+            if message.author.guild_permissions.administrator:
+                user = await client.fetch_user(int(message.content[3:22]))
+                reason = message.content[22:]
+                await message.guild.kick(user, reason=reason)
+                embed = discord.Embed(title="킥문구 작동", color=0xAAFFFF) 
+                embed.add_field(name="킥된 유저", value=f"{user.mention}", inline=False)
+                embed.add_field(name="킥 시킨 관리자", value=f"{message.author.mention}", inline=False)
+                embed.add_field(name="사유", value=f"{reason}", inline=False)
+                await message.channel.send(embed=embed)
+            else:
+                await message.channel.send(embed=discord.Embed(title="오류발생", description =f"{message.author.mention}님은 권한이 없어요", color=0xff0000))
+                return
+        
             
     if message.content.startswith("/밴"):
-        if message.author.guild_permissions.administrator:
-            user = await client.fetch_user(int(message.content[3:21]))
-            reason = message.content[22:]
-            await message.guild.ban(user)
-            embed = discord.Embed(title="밴문구 작동", color=0xAAFFFF) 
-            embed.add_field(name="밴된 유저", value=f"{user.mention}", inline=False)
-            embed.add_field(name="밴 시킨 관리자", value=f"{message.author.mention}", inline=False)
-            embed.add_field(name="사유", value=f"{reason}", inline=False)
-            await message.channel.send(embed=embed)
+        if message.content == "/밴":
+            await message.channel.send(embed=discord.Embed(title="에러 발생", description = "올바른 명령어는 '/밴 (밴할 유저의 아이디) (사유)'에요", color=0xff0000))
         else:
-            await message.channel.send(embed=discord.Embed(title="오류발생", description =f"{message.author.mention}님은 권한이 없어요", color=0xff0000))
-            return
+            if message.author.guild_permissions.administrator:
+                user = await client.fetch_user(int(message.content[3:21]))
+                reason = message.content[22:]
+                await message.guild.ban(user, reason=reason)
+                embed = discord.Embed(title="밴문구 작동", color=0xAAFFFF) 
+                embed.add_field(name="밴된 유저", value=f"{user.mention}", inline=False)
+                embed.add_field(name="밴 시킨 관리자", value=f"{message.author.mention}", inline=False)
+                embed.add_field(name="사유", value=f"{reason}", inline=False)
+                await message.channel.send(embed=embed)
+            
+            else:
+                await message.channel.send(embed=discord.Embed(title="오류발생", description =f"{message.author.mention}님은 권한이 없어요", color=0xff0000))
+                return
     if message.content.startswith("/청소"):
         if message.content == "/청소":
             await message.channel.send(embed=discord.Embed(title="에러 발생", description = "올바른 명령어는 '/청소 (청소할 개수)'에요", color=0xff0000))
@@ -108,7 +123,7 @@ async def on_message(message): #사용자가 메세지를 입력했을때 반응
             await message.channel.send("이 명령어는 로라님만 사용할수 있어요!")
     if message.content == "/핑":
         ping = client.latency
-        await message.channel.send(f'{str(round(ping * 1000))}ms 입니다!')
+        await message.channel.send(f'haziel의 핑은 {str(round(ping * 1000))}ms 입니다!')
         print(f"{message.author.mention}님이 핑코드를 사용했어요")
     if message.content.startswith("/고정"):
         if message.content == "/고정":
@@ -141,7 +156,7 @@ async def on_message(message): #사용자가 메세지를 입력했을때 반응
     if message.content == "/주사위":
         await message.channel.send(random.randint(1, 6))
     if message.content.startswith == ("/디엠"):
-        author = message.guild.get_member(int(message.conent[4:22]))
+        author = await client.fetch_user(int(message.content[3:22]))
         msg = message.content[23:]
         await author.send(msg)
         await message.channel.send("성공적으로 전송되었습니다!")
@@ -176,8 +191,8 @@ async def on_message(message): #사용자가 메세지를 입력했을때 반응
         else:
             await message.channel.send("이 명령어는 Lora로라#3561님만 사용할수 있어요!")
     if message.content.startswith("/파티모집"):
-        tada = message.content[6:]
-        await message.channel.send(f'{message.author.mention}님과 같이 "{tada}"를 하실분을 찾습니다')
+        Game = message.content[6:]
+        await message.channel.send(f'{message.author.mention}님과 같이 "{Game}"를 하실분을 찾습니다')
     if message.content.startswith("/채널매세지"):
         if message.author.id == 704535152763601007:
             channel = message.content[7:25]
@@ -236,7 +251,7 @@ async def on_message(message): #사용자가 메세지를 입력했을때 반응
         
             if random_ == 4: #random 에 저장된 변수가 4일때 (금붕어 성공)
                 if message.content == "/금붕어 키우기":
-                    await message.channel.send(f"{message.author.mention}님 금붕어가 성공적으로 잘았어요! <@&787278945392525312>님 {message.author.mention}님한테 보상으로 금붕어 달인 역할을 주세요")
+                    await message.channel.send(f"{message.author.mention}님 금붕어가 성공적으로 자랐어요! <@&787278945392525312>님 {message.author.mention}님한테 보상으로 금붕어 달인 역할을 주세요")
         else:
             embed = discord.Embed(title="오류", description="이 명령어는 저의 서포트 체널에서만 사용가능해요 [여기](https://discord.gg/c3fjR4Kmvh) 를 눌러 바로 서포트 채널로 이동 하실수 있어요!", color=0xAAFFFF)
             await message.channel.send(embed=embed) 
@@ -245,7 +260,6 @@ async def on_message(message): #사용자가 메세지를 입력했을때 반응
         embed = discord.Embed(title="Haizel의 개발자 정보", description="저를 만들어주신분 정보에요!", color=0xAAFFFF) 
         embed.add_field(name="닉네임", value="Lora로라#3561", inline=False)
         embed.add_field(name="아이디", value="704535152763601007", inline=False)
-        embed.add_field(name="프로필 사진 그려주신분", value="/디자이너 를 하세요", inline=True)
         await message.channel.send(embed=embed)
     if message.content.startswith("/디자이너"):
         embed = discord.Embed(title="Haizel의 디자이너 정보", description="저의 프사를 만들어주신분 정보에요!", color=0xAAFFFF) 
@@ -275,9 +289,10 @@ async def on_message(message): #사용자가 메세지를 입력했을때 반응
             msg = message.content[5:]
             for i in client.guilds:
                 for j in i.channels:
-                    if ['봇', '공지'] in j.name:
+                    if '봇' in j.name and '공지' in j.name:
                         await j.send(msg)
                         return
+
 
 
 #===========================================================봇정보===========================================================================
@@ -391,6 +406,11 @@ async def on_message(message): #사용자가 메세지를 입력했을때 반응
         embed = discord.Embed(timestamp=message.created_at, colour=discord.Colour.red(), title="욕설감지", description=f"{message.author.mention}님이 욕을 하였습니다")
         embed.add_field(name="사용한 욕설", value=f"{message.content}")
         await message.channel.send(embed=embed)
+    if message.content.startswith("야발"):
+        await message.delete()
+        embed = discord.Embed(timestamp=message.created_at, colour=discord.Colour.red(), title="욕설감지", description=f"{message.author.mention}님이 욕을 하였습니다")
+        embed.add_field(name="사용한 욕설", value=f"{message.content}")
+        await message.channel.send(embed=embed)
 
 
 
@@ -474,8 +494,8 @@ async def on_message(message): #사용자가 메세지를 입력했을때 반응
 
 #====================================================eval코드===============================================================================
     
-    
-
+    if message.content == '/도움말' or message.content == '/도움' or message.content == '/help':
+        await message.channel.send("https://discord.gg/8rpDVZBumw")
     if message.content == '/도움말' or message.content == '/도움' or message.content == '/help':
         n = 0
         helps = [discord.Embed(title='목차', description='**페이지 2**\n 관리기능\n**페이지 3**\n편의기능\n**페이지 4**\n재미기능\n**페이지 5**\n봇정보', color=0x00ffff),
@@ -510,6 +530,23 @@ async def on_message(message): #사용자가 메세지를 입력했을때 반응
             elif reaction.emoji == '⏹️':
                 await help_msg.delete()
                 break
-                                    
-                                    
+
+#====================================================================도움말 코드========================================================================
+
+
+@client.event
+async def synchronization():
+    if guild.me.guild_permissions >= discord.Permissions(permissions=1610607742) == False:
+        await guild.owner.send(embed=discord.Embed(color=0x7289DA, title="퇴장 안내", description=f"``{guild.name}`` 서버에서 권한이 부족해 퇴장하였습니다."))
+        await guild.leave()
+    
+        
+        
+        
+    
+    
+        
+    
+    
+    
 client.run(token)
